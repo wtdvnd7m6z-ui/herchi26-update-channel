@@ -1,0 +1,48 @@
+name: Publish HERCHI26 Chief v0.9.8
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-v098.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download verified private build artifact
+        env:
+          ARTIFACT_URL: "https://sdmntpreastus.oaiusercontent.com/files/00000000-d3b4-81f9-9529-4744b1eeead8/raw?se=2026-09-16T16%3A33%3A08Z&sp=r&sv=2026-02-06&sr=b&scid=8e90b42c-239e-53e8-b5d1-e18049f1ca8b&skoid=5c9dda00-298b-4376-81e9-b4568c8a3c0f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T06%3A09%3A30Z&ske=2026-09-17T06%3A09%3A30Z&sks=b&skv=2026-02-06&sig=mdPdQ5FPfm/hC8RHWM78Eb3eh%2BbVfX1cWKDtR5O6jyE%3D"
+        run: |
+          curl -fL "$ARTIFACT_URL" -o /tmp/channel.zip
+          rm -rf /tmp/channel && mkdir -p /tmp/channel
+          unzip -q /tmp/channel.zip -d /tmp/channel
+          test -f /tmp/channel/manifest.json
+          test -f /tmp/channel/HERCHI26_CHIEF_RUNTIME_UPDATE.zip
+      - name: Verify v0.9.8 manifest and package SHA-256
+        run: |
+          python3 - <<'PY'
+          import json, hashlib, pathlib
+          root=pathlib.Path('/tmp/channel')
+          m=json.loads((root/'manifest.json').read_text())
+          assert m['version']=='0.9.8', m
+          assert m['buildId']=='H26-COMMS-007', m
+          p=root/'HERCHI26_CHIEF_RUNTIME_UPDATE.zip'
+          sha=hashlib.sha256(p.read_bytes()).hexdigest()
+          assert sha==m['sha256'], (sha,m['sha256'])
+          print('PASS', m['version'], sha)
+          PY
+      - name: Publish channel files
+        run: |
+          cp /tmp/channel/manifest.json ./manifest.json
+          cp /tmp/channel/HERCHI26_CHIEF_RUNTIME_UPDATE.zip ./HERCHI26_CHIEF_RUNTIME_UPDATE.zip
+          git config user.name "HERCHI26 Update Publisher"
+          git config user.email "actions@users.noreply.github.com"
+          git add manifest.json HERCHI26_CHIEF_RUNTIME_UPDATE.zip
+          git commit -m "Publish HERCHI26 Chief v0.9.8 COMMS real send fix"
+          git push origin main
