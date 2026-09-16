@@ -1,0 +1,70 @@
+name: Publish HERCHI26 Chief v0.9.3
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-v093.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build verified v0.9.3 runtime package
+        env:
+          BASE_URL: "https://sdmntprcentralus.oaiusercontent.com/files/00000000-2084-81f5-b777-3f94bdc1444a/raw?se=2026-09-16T15%3A00%3A52Z&sp=r&sv=2026-02-06&sr=b&scid=b47d9ace-f012-5b14-b7a1-350398af6e79&skoid=5c9dda00-298b-4376-81e9-b4568c8a3c0f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-16T07%3A18%3A32Z&ske=2026-09-17T07%3A18%3A32Z&sks=b&skv=2026-02-06&sig=N8Ivkt/xSvfhd9T6Z7b2Q/atHC0plHPrRq1vZyfw6vs%3D"
+          SERVE_B64: "aW1wb3J0IGh0dHAgZnJvbSAnbm9kZTpodHRwJzsKaW1wb3J0IGZzIGZyb20gJ25vZGU6ZnMvcHJvbWlzZXMnOwppbXBvcnQgcGF0aCBmcm9tICdub2RlOnBhdGgnOwppbXBvcnQgeyBmaWxlVVJMVG9QYXRoIH0gZnJvbSAnbm9kZTp1cmwnOwoKY29uc3QgcmVwb1Jvb3QgPSBwYXRoLnJlc29sdmUocGF0aC5kaXJuYW1lKGZpbGVVUkxUb1BhdGgoaW1wb3J0Lm1ldGEudXJsKSksICcuLicpOwpjb25zdCByb290ID0gcGF0aC5qb2luKHJlcG9Sb290LCAnYXBwcycsICdjaGllZi12MScsICdkaXN0Jyk7CmNvbnN0IHBvcnQgPSBOdW1iZXIocHJvY2Vzcy5lbnYuSEVSQ0hJMjZfQ0hJRUZfUE9SVCA/PyA0MjYwKTsKCmNvbnN0IGNvbnRlbnRUeXBlcyA9IHsKICAnLmh0bWwnOiAndGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04JywKICAnLmNzcyc6ICd0ZXh0L2NzczsgY2hhcnNldD11dGYtOCcsCiAgJy5qcyc6ICd0ZXh0L2phdmFzY3JpcHQ7IGNoYXJzZXQ9dXRmLTgnLAogICcuanNvbic6ICdhcHBsaWNhdGlvbi9qc29uOyBjaGFyc2V0PXV0Zi04JywKICAnLnN2Zyc6ICdpbWFnZS9zdmcreG1sJywKICAnLnBuZyc6ICdpbWFnZS9wbmcnLAogICcuaWNvJzogJ2ltYWdlL3gtaWNvbicsCn07Cgphc3luYyBmdW5jdGlvbiByZWFkRmlsZUZvclJlcXVlc3QodXJsUGF0aCkgewogIGNvbnN0IGNsZWFuID0gZGVjb2RlVVJJQ29tcG9uZW50KCh1cmxQYXRoIHx8ICcvJykuc3BsaXQoJz8nKVswXSk7CiAgY29uc3QgcmVsYXRpdmUgPSBjbGVhbiA9PT0gJy8nID8gJ2luZGV4Lmh0bWwnIDogY2xlYW4ucmVwbGFjZSgvXlwvKy8sICcnKTsKICBjb25zdCBjYW5kaWRhdGUgPSBwYXRoLnJlc29sdmUocm9vdCwgcmVsYXRpdmUpOwogIGNvbnN0IHJvb3RSZXNvbHZlZCA9IHBhdGgucmVzb2x2ZShyb290KTsKICBpZiAoIWNhbmRpZGF0ZS5zdGFydHNXaXRoKGAke3Jvb3RSZXNvbHZlZH0ke3BhdGguc2VwfWApICYmIGNhbmRpZGF0ZSAhPT0gcGF0aC5qb2luKHJvb3RSZXNvbHZlZCwgJ2luZGV4Lmh0bWwnKSkgcmV0dXJuIG51bGw7CiAgdHJ5IHsKICAgIGNvbnN0IHN0YXQgPSBhd2FpdCBmcy5zdGF0KGNhbmRpZGF0ZSk7CiAgICBpZiAoIXN0YXQuaXNGaWxlKCkpIHJldHVybiBudWxsOwogICAgcmV0dXJuIHsgcGF0aDogY2FuZGlkYXRlLCBjb250ZW50OiBhd2FpdCBmcy5yZWFkRmlsZShjYW5kaWRhdGUpIH07CiAgfSBjYXRjaCB7CiAgICByZXR1cm4gbnVsbDsKICB9Cn0KCmNvbnN0IHNlcnZlciA9IGh0dHAuY3JlYXRlU2VydmVyKGFzeW5jIChyZXF1ZXN0LCByZXNwb25zZSkgPT4gewogIGNvbnN0IGZvdW5kID0gYXdhaXQgcmVhZEZpbGVGb3JSZXF1ZXN0KHJlcXVlc3QudXJsID8/ICcvJyk7CiAgaWYgKGZvdW5kKSB7CiAgICByZXNwb25zZS53cml0ZUhlYWQoMjAwLCB7CiAgICAgICdDb250ZW50LVR5cGUnOiBjb250ZW50VHlwZXNbcGF0aC5leHRuYW1lKGZvdW5kLnBhdGgpXSA/PyAnYXBwbGljYXRpb24vb2N0ZXQtc3RyZWFtJywKICAgICAgLy8gQ2hpZWYgcnVucyBvbmx5IGxvY2FsbHkgYW5kIGNoYW5nZXMgZnJlcXVlbnRseSBkdXJpbmcgdGhlIHJlYnVpbGQuIE5ldmVyIGxldCBTYWZhcmkKICAgICAgLy8gcmV1c2UgYW4gb2xkZXIgdXBkYXRlci92ZXJzaW9uIHNjcmlwdCBhY3Jvc3MgaW5zdGFsbHMuCiAgICAgICdDYWNoZS1Db250cm9sJzogJ25vLXN0b3JlLCBuby1jYWNoZSwgbXVzdC1yZXZhbGlkYXRlLCBtYXgtYWdlPTAnLAogICAgICBQcmFnbWE6ICduby1jYWNoZScsCiAgICAgIEV4cGlyZXM6ICcwJywKICAgIH0pOwogICAgcmVzcG9uc2UuZW5kKGZvdW5kLmNvbnRlbnQpOwogICAgcmV0dXJuOwogIH0KCiAgLy8gU1BBIGZhbGxiYWNrIGZvciBDaGllZiByb3V0ZXMuCiAgdHJ5IHsKICAgIGNvbnN0IGluZGV4ID0gYXdhaXQgZnMucmVhZEZpbGUocGF0aC5qb2luKHJvb3QsICdpbmRleC5odG1sJykpOwogICAgcmVzcG9uc2Uud3JpdGVIZWFkKDIwMCwgewogICAgICAnQ29udGVudC1UeXBlJzogJ3RleHQvaHRtbDsgY2hhcnNldD11dGYtOCcsCiAgICAgICdDYWNoZS1Db250cm9sJzogJ25vLXN0b3JlLCBuby1jYWNoZSwgbXVzdC1yZXZhbGlkYXRlLCBtYXgtYWdlPTAnLAogICAgICBQcmFnbWE6ICduby1jYWNoZScsCiAgICAgIEV4cGlyZXM6ICcwJywKICAgIH0pOwogICAgcmVzcG9uc2UuZW5kKGluZGV4KTsKICB9IGNhdGNoIHsKICAgIHJlc3BvbnNlLndyaXRlSGVhZCg1MDMsIHsgJ0NvbnRlbnQtVHlwZSc6ICd0ZXh0L3BsYWluOyBjaGFyc2V0PXV0Zi04JyB9KTsKICAgIHJlc3BvbnNlLmVuZCgnSEVSQ0hJMjYgQ2hpZWYgYnVpbGQgZmVobHQuJyk7CiAgfQp9KTsKCnNlcnZlci5saXN0ZW4ocG9ydCwgJzEyNy4wLjAuMScsICgpID0+IHsKICBjb25zb2xlLmxvZyhgSEVSQ0hJMjYgQ2hpZWYgc3RhdGljIHNlcnZlciBsaXN0ZW5pbmcgb24gaHR0cDovLzEyNy4wLjAuMToke3BvcnR9YCk7Cn0pOwo="
+          INDEX_B64: "PCFkb2N0eXBlIGh0bWw+CjxodG1sIGxhbmc9ImRlIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8bWV0YSBuYW1lPSJ0aGVtZS1jb2xvciIgY29udGVudD0iIzBiMTIyMCIgLz4KICAgIDx0aXRsZT5IRVJDSEkyNiBDaGllZiBWMTwvdGl0bGU+CiAgICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii92ZXJzaW9uLXN0YW1wLmNzcz92PTAuOS4yIiAvPgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSIvdXBkYXRlci11aS5jc3M/dj0wLjkuMiIgLz4KICAgIDxzY3JpcHQgdHlwZT0ibW9kdWxlIiBjcm9zc29yaWdpbiBzcmM9Ii9hc3NldHMvaW5kZXgtQkdrQVNnc0wuanMiPjwvc2NyaXB0PgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBjb3Jzc29yaWdpbiBocmVmPSIvYXNzZXRzL2luZGV4LTN3ZG54eXE0LmNzcyI+CiAgPC9oZWFkPgogIDxib2R5PgogICAgPGRpdiBpZD0icm9vdCI+PC9kaXY+CiAgICA8ZGl2IGlkPSJwbGF0Zm9ybVZlcnNpb25TdGFtcCIgYXJpYS1sYWJlbD0iSW5zdGFsbGllcnRlIEhFUkNISTI2LVZlcnNpb24iPgogICAgICA8c3Ryb25nIGlkPSJwbGF0Zm9ybVZlcnNpb25Qcm9kdWN0Ij5IRVJDSEkyNiBDaGllZjwvc3Ryb25nPgogICAgICA8c3BhbiBpZD0icGxhdGZvcm1WZXJzaW9uRGlzcGxheSI+VmVyc2lvbiB3aXJkIGdlbGFkZW4g4oCmPC9zcGFuPgogICAgICA8c21hbGwgaWQ9InBsYXRmb3JtVmVyc2lvbkJ1aWxkIj5WZXJzaW9uc3N0YW5kPC9zbWFsbD4KICAgICAgPGJ1dHRvbiBpZD0ib3BlblVwZGF0ZXJCdXR0b24iIHR5cGU9ImJ1dHRvbiIgb25jbGljaz0iZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2hlcmNoaTI2VXBkYXRlck1vZGFsJyk/LmNsYXNzTGlzdC5yZW1vdmUoJ2hpZGRlbicpIj7ihrsgVXBkYXRlczwvYnV0dG9uPgogICAgPC9kaXY+CiAgICA8c2NyaXB0IHR5cGU9Im1vZHVsZSIgc3JjPSIvdmVyc2lvbi1zdGFtcC5qcz92PTAuOS4yIj48L3NjcmlwdD4KICAgIDxzY3JpcHQgdHlwZT0ibW9kdWxlIiBzcmM9Ii91cGRhdGVyLXVpLmpzP3Y9MC45LjIiPjwvc2NyaXB0PgogIDwvYm9keT4KPC9odG1sPgo="
+          CSS_B64: "I3BsYXRmb3JtVmVyc2lvblN0YW1we3BvaW50ZXItZXZlbnRzOmF1dG99I29wZW5VcGRhdGVyQnV0dG9ue2Rpc3BsYXk6YmxvY2shaW1wb3J0YW50O3Zpc2liaWxpdHk6dmlzaWJsZSFpbXBvcnRhbnQ7b3BhY2l0eToxIWltcG9ydGFudDttaW4taGVpZ2h0OjMwcHghaW1wb3J0YW50O21hcmdpbi10b3A6OHB4O3dpZHRoOjEwMCU7Ym9yZGVyOjFweCBzb2xpZCAjMmY3N2M3O2JvcmRlci1yYWRpdXM6N3B4O2JhY2tncm91bmQ6IzE0NzZmMjtjb2xvcjojZmZmO3BhZGRpbmc6N3B4IDhweDtmb250OjgwMCAxMHB4LzEuMiBJbnRlcix1aS1zYW5zLXNlcmlmLHN5c3RlbS11aSwtYXBwbGUtc3lzdGVtLEJsaW5rTWFjU3lzdGVtRm9udCwiU2Vnb2UgVUkiLHNhbnMtc2VyaWY7Y3Vyc29yOnBvaW50ZXI7cG9zaXRpb246cmVsYXRpdmU7ei1pbmRleDo2MH0jb3BlblVwZGF0ZXJCdXR0b246aG92ZXJ7Ym9yZGVyLWNvbG9yOiM2YWE4ZWY7YmFja2dyb3VuZDojMjE4NGZmO2NvbG9yOiNmZmZ9LmgyNi11cGRhdGUtb3ZlcmxheXtwb3NpdGlvbjpmaXhlZDtpbnNldDowO3otaW5kZXg6MjAwMDtiYWNrZ3JvdW5kOnJnYmEoMiw4LDE1LC43Mik7YmFja2Ryb3AtZmlsdGVyOmJsdXIoOHB4KTtkaXNwbGF5OmdyaWQ7cGxhY2UtaXRlbXM6Y2VudGVyO3BhZGRpbmc6MjRweH0uaDI2LXVwZGF0ZS1vdmVybGF5LmhpZGRlbntkaXNwbGF5Om5vbmV9LmgyNi11cGRhdGUtY2FyZHt3aWR0aDptaW4oNzIwcHgsOTJ2dyk7Ym9yZGVyOjFweCBzb2xpZCAjMjg0NzYyO2JvcmRlci1yYWRpdXM6MTZweDtiYWNrZ3JvdW5kOmxpbmVhci1ncmFkaWVudCgxODBkZWcsIzEwMjQzYSwjMDkxODI3KTtib3gtc2hhZG93OjAgMjhweCA4MHB4IHJnYmEoMCwwLDAsLjQ1KTtwYWRkaW5nOjIwcHg7Y29sb3I6I2U5ZjJmYn0uaDI2LXVwZGF0ZS1oZWFke2Rpc3BsYXk6ZmxleDtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjthbGlnbi1pdGVtczpmbGV4LXN0YXJ0O2dhcDoyMHB4fS5oMjYtdXBkYXRlLWhlYWQgc21hbGx7ZGlzcGxheTpibG9jaztjb2xvcjojNWY4YmMyO2ZvbnQtc2l6ZToxMHB4O2ZvbnQtd2VpZ2h0OjgwMDtsZXR0ZXItc3BhY2luZzouMTJlbX0uaDI2LXVwZGF0ZS1oZWFkIGgye21hcmdpbjo0cHggMCAwO2ZvbnQtc2l6ZToyNnB4fS5oMjYtdXBkYXRlLWhlYWQgYnV0dG9ue3dpZHRoOjM4cHg7aGVpZ2h0OjM4cHg7Ym9yZGVyLXJhZGl1czoxMHB4O2JvcmRlcjoxcHggc29saWQgIzI5NDk2NjtiYWNrZ3JvdW5kOiMwYzFkMzE7Y29sb3I6I2JjZDBlNTtmb250LXNpemU6MjJweDtjdXJzb3I6cG9pbnRlcn0uaDI2LXVwZGF0ZS1ncmlke2Rpc3BsYXk6Z3JpZDtncmlkLXRlbXBsYXRlLWNvbHVtbnM6MWZyIDFmcjtnYXA6MTJweDttYXJnaW4tdG9wOjE4cHh9LmgyNi11cGRhdGUtZ3JpZCBhcnRpY2xle2JvcmRlcjoxcHggc29saWQgIzIwM2I1Njtib3JkZXItcmFkaXVzOjExcHg7YmFja2dyb3VuZDojMGExYzJmO3BhZGRpbmc6MTRweH0uaDI2LXVwZGF0ZS1ncmlkIHNwYW4sLmgyNi11cGRhdGUtZ3JpZCBzdHJvbmcsLmgyNi11cGRhdGUtZ3JpZCBzbWFsbHtkaXNwbGF5OmJsb2NrfS5oMjYtdXBkYXRlLWdyaWQgc3Bhbntjb2xvcjojNzY4ZGE4O2ZvbnQtc2l6ZToxMHB4O3RleHQtdHJhbnNmb3JtOnVwcGVyY2FzZTtsZXR0ZXItc3BhY2luZzouMDZlbX0uaDI2LXVwZGF0ZS1ncmlkIHN0cm9uZ3tmb250LXNpemU6MjBweDttYXJnaW4tdG9wOjVweH0uaDI2LXVwZGF0ZS1ncmlkIHNtYWxse2NvbG9yOiM2NjgwOWQ7bWFyZ2luLXRvcDo0cHg7Zm9udC1zaXplOjEwcHh9LmgyNi11cGRhdGUtc3RhdHVze21hcmdpbi10b3A6MTRweDtib3JkZXI6MXB4IHNvbGlkICMyOTQzNWQ7Ym9yZGVyLXJhZGl1czoxMHB4O2JhY2tncm91bmQ6IzBhMWEyYztjb2xvcjojOWZiMmM4O3BhZGRpbmc6MTJweCAxM3B4O2ZvbnQtc2l6ZToxMnB4fS5oMjYtdXBkYXRlLXN0YXR1cy5nb29ke2JvcmRlci1jb2xvcjojMjY1ZjQ5O2NvbG9yOiM2ZmUwYWE7YmFja2dyb3VuZDpyZ2JhKDI0LDkyLDY1LC4xNSl9LmgyNi11cGRhdGUtc3RhdHVzLndhcm5pbmd7Ym9yZGVyLWNvbG9yOiM2ODRmMjQ7Y29sb3I6I2U2YjQ1ZDtiYWNrZ3JvdW5kOnJnYmEoMTA5LDc3LDI1LC4xNSl9LmgyNi11cGRhdGUtc3RhdHVzLmVycm9ye2JvcmRlci1jb2xvcjojNmIyZjNhO2NvbG9yOiNmZjg5OTc7YmFja2dyb3VuZDpyZ2JhKDExOSwzOCw1MiwuMTUpfS5oMjYtdXBkYXRlLWFjdGlvbnN7ZGlzcGxheTpmbGV4O2p1c3RpZnktY29udGVudDpmbGV4LWVuZDtnYXA6OXB4O21hcmdpbi10b3A6MTRweH0uaDI2LXVwZGF0ZS1hY3Rpb25zIGJ1dHRvbntib3JkZXItcmFkaXVzOjhweDtwYWRkaW5nOjlweCAxM3B4O2ZvbnQtd2VpZ2h0OjgwMDtjdXJzb3I6cG9pbnRlcn0uaDI2LXVwZGF0ZS1hY3Rpb25zIC5wcmltYXJ5e2JvcmRlcjowO2JhY2tncm91bmQ6IzE0NzZmMjtjb2xvcjp3aGl0ZX0uaDI2LXVwZGF0ZS1hY3Rpb25zIC5zZWNvbmRhcnl7Ym9yZGVyOjFweCBzb2xpZCAjMmI0YTY4O2JhY2tncm91bmQ6IzEwMjQzYTtjb2xvcjojYzlkYWVkfS5oMjYtdXBkYXRlLWFjdGlvbnMgYnV0dG9uOmRpc2FibGVke29wYWNpdHk6LjQ1O2N1cnNvcjpkZWZhdWx0fS5oMjYtdXBkYXRlLW5vdGV7bWFyZ2luLXRvcDoxNnB4O2JvcmRlci10b3A6MXB4IHNvbGlkICMxZTMzNGI7cGFkZGluZy10b3A6MTRweDtjb2xvcjojODE5NWFlfS5oMjYtdXBkYXRlLW5vdGUgc3Ryb25ne2NvbG9yOiNjYWQ5ZTk7Zm9udC1zaXplOjEycHh9LmgyNi11cGRhdGUtbm90ZSBwe21hcmdpbjo1cHggMCAwO2xpbmUtaGVpZ2h0OjEuNDU7Zm9udC1zaXplOjExcHh9QG1lZGlhKG1heC13aWR0aDo5MDBweCl7LmgyNi11cGRhdGUtZ3JpZHtncmlkLXRlbXBsYXRlLWNvbHVtbnM6MWZyfX0="
+        run: |
+          set -euo pipefail
+          curl -fL "$BASE_URL" -o base-artifact.zip
+          rm -rf base stage
+          mkdir base stage
+          unzip -q base-artifact.zip -d base
+          unzip -q base/HERCHI26_CHIEF_RUNTIME_UPDATE.zip -d stage
+          printf '%s' "$SERVE_B64" | base64 -d > stage/HERCHI26_CHIEF_RUNTIME/scripts/serve-chief-v1.mjs
+          printf '%s' "$INDEX_B64" | base64 -d | sed 's/0\.9\.2/0.9.3/g' > stage/HERCHI26_CHIEF_RUNTIME/apps/chief-v1/dist/index.html
+          printf '%s' "$CSS_B64" | base64 -d > stage/HERCHI26_CHIEF_RUNTIME/apps/chief-v1/dist/updater-ui.css
+          cat > stage/HERCHI26_CHIEF_RUNTIME/apps/chief-v1/dist/version.json <<'JSON'
+          {
+            "product": "HERCHI26 Chief",
+            "version": "0.9.3",
+            "versionDate": "2026-09-16",
+            "buildId": "H26-CORE-008",
+            "channel": "BUILD",
+            "display": "v0.9.3 · 16.09.2026"
+          }
+          JSON
+          rm -f HERCHI26_CHIEF_RUNTIME_UPDATE.zip manifest.json
+          (cd stage && zip -qry ../HERCHI26_CHIEF_RUNTIME_UPDATE.zip HERCHI26_CHIEF_RUNTIME)
+          unzip -tq HERCHI26_CHIEF_RUNTIME_UPDATE.zip
+          test "$(unzip -p HERCHI26_CHIEF_RUNTIME_UPDATE.zip HERCHI26_CHIEF_RUNTIME/apps/chief-v1/dist/version.json | python3 -c 'import json,sys; print(json.load(sys.stdin)["version"])')" = "0.9.3"
+          SHA="$(sha256sum HERCHI26_CHIEF_RUNTIME_UPDATE.zip | awk '{print $1}')"
+          cat > manifest.json <<JSON
+          {
+            "schemaVersion": 1,
+            "product": "HERCHI26 Chief",
+            "version": "0.9.3",
+            "versionDate": "2026-09-16",
+            "buildId": "H26-CORE-008",
+            "channel": "BUILD",
+            "packageUrl": "HERCHI26_CHIEF_RUNTIME_UPDATE.zip",
+            "sha256": "$SHA",
+            "notes": "HERCHI26 Chief public self-update channel test"
+          }
+          JSON
+          echo "$SHA  HERCHI26_CHIEF_RUNTIME_UPDATE.zip" | sha256sum -c -
+      - name: Publish manifest and package
+        run: |
+          set -euo pipefail
+          git config user.name "HERCHI26 Update Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add manifest.json HERCHI26_CHIEF_RUNTIME_UPDATE.zip
+          git commit -m "Publish HERCHI26 Chief v0.9.3 update" || exit 0
+          git push origin HEAD:main
