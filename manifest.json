@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "product": "HERCHI26 Chief",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "versionDate": "2026-09-16",
   "buildId": "H26-COMMS-007",
   "channel": "BUILD",
   "packageUrl": "HERCHI26_CHIEF_RUNTIME_UPDATE.zip",
-  "sha256": "ca40c4beb1384b297623cd57197ff6e0a2c382524e99c4b5199364f7aeeb5298",
+  "sha256": "d242b5b956a076fa205298db47613559cb7c6a562087fcd224c685d211f8eb39",
   "notes": "HERCHI26 Chief modular runtime update"
 }
